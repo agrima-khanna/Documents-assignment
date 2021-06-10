@@ -1,0 +1,37 @@
+.previewPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-left: 10px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+
+  margin: 20px;
+}
+.previewLarge {
+  width: 700px;
+  height: 900px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+}
+.item {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+  padding: 10px;
+}
+.title {
+  padding-left: 10px;
+}
+.preview {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
