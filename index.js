@@ -47,19 +47,33 @@ var emitEvent = (item) => {
 
   item.dispatchEvent(mEvent);
 };
+var truncate = (text) => {
+  var title = document.createElement("div");
+  var part1 = document.createElement("span");
+  var part2 = document.createElement("span");
+  title.classList.add("title");
+  part1.classList.add("part1");
+  part2.classList.add("part2");
+
+  part1.textContent = text.slice(0, text.length / 2);
+  part2.textContent = text.slice(text.length / 2);
+
+  title.append(part1);
+  title.append(part2);
+  return title;
+};
 const list = document.querySelector(".list");
 itemsList.forEach((obj, index) => {
   var item = document.createElement("li");
   item.classList.add("item");
   var img = document.createElement("img");
   img.classList.add("preview");
-  var title = document.createElement("div");
-  title.classList.add("title");
-  title.textContent = obj.title;
+
   img.setAttribute("src", obj.previewImage);
+  img.setAttribute("alt", obj.title);
 
   item.appendChild(img);
-  item.appendChild(title);
+  item.appendChild(truncate(obj.title));
   item.setAttribute("tabindex", index);
   list.appendChild(item);
 });
@@ -77,7 +91,7 @@ document.addEventListener(
       }
 
       lastClicked = item;
-      previewTitle.textContent = item.childNodes[1].innerHTML;
+      previewTitle.textContent = item.firstChild.getAttribute("alt");
       previewLarge.setAttribute("src", item.firstChild.getAttribute("src"));
       item.style.backgroundColor = "#185adb";
       item.style.color = "#ffffff";
