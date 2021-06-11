@@ -1,24 +1,29 @@
-.previewPanel {
+.container {
   display: flex;
+  justify-content: center;
+
+  float: left;
+
+  margin: 20px;
+}
+.previewPanel {
+  float: right;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
 
   margin-left: 10px;
 }
-.container {
-  display: flex;
-  justify-content: center;
 
-  margin: 20px;
-}
 .previewLarge {
   width: 600px;
   height: 900px;
   object-fit: cover;
 }
 .list {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
+  min-width: fit-content;
 }
 .item {
   display: flex;
