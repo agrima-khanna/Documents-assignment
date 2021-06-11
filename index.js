@@ -54,8 +54,8 @@ var truncate = (text) => {
   title.classList.add("title");
   part1.classList.add("part1");
   part2.classList.add("part2");
-  part1.textContent = text.slice(0, 15);
-  part2.textContent = text.slice(15);
+  part1.textContent = text.slice(0, 14);
+  part2.textContent = text.slice(14);
   console.log(part2.textContent);
   title.append(part1);
   title.append(part2);
