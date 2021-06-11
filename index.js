@@ -1,52 +1,5 @@
-var itemsList = [
-  {
-    previewImage:
-      "https://images.unsplash.com/photo-1561948955-570b270e7c36?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    title: "cat.jpeg",
-  },
-  {
-    previewImage:
-      "https://images.unsplash.com/photo-1606787620819-8bdf0c44c293?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    title: "cooking couple shoot portofilio(1).jpg",
-  },
-  {
-    previewImage:
-      "https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    title: "bali-kelingking-beach-plastic-removal-drive.key",
-  },
-  {
-    previewImage:
-      "https://images.unsplash.com/photo-1623206837956-07dab21608f6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-    title: "NextByk Investor Pitch 2021.ppt",
-  },
-  {
-    previewImage:
-      "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
-    title: "interns-performance-report-june-2021.key",
-  },
-];
-var emitEvent = (item) => {
-  var mEvent = document.createEvent("MouseEvent");
-  mEvent.initMouseEvent(
-    "click",
-    true,
-    true,
-    window,
-    0,
-    0,
-    0,
-    0,
-    0,
-    false,
-    false,
-    false,
-    false,
-    0,
-    null
-  );
+import itemsList from "./itemsList.js";
 
-  item.dispatchEvent(mEvent);
-};
 var truncate = (text) => {
   var title = document.createElement("div");
   var part1 = document.createElement("span");
@@ -59,12 +12,6 @@ var truncate = (text) => {
   console.log(part2.textContent);
   title.append(part1);
   title.append(part2);
-  // var title = document.createElement("div");
-  // title.classList.add("title");
-  // if (text.length > 31)
-  //   title.textContent =
-  //     text.slice(0, 15) + "..." + text.slice(text.length - 15);
-  // else title.textContent = text;
 
   return title;
 };
@@ -86,6 +33,8 @@ itemsList.forEach((obj, index) => {
 var lastClicked = undefined;
 const previewLarge = document.querySelector(".previewLarge");
 const previewTitle = document.querySelector(".name");
+//event delegation
+
 document.addEventListener(
   "click",
   function (event) {
@@ -112,20 +61,22 @@ document.onkeydown = function (e) {
       if (lastClicked == undefined) {
         lastClicked = list.firstElementChild;
         console.log(lastClicked);
-        emitEvent(lastClicked);
+
+        lastClicked.click();
       } else if (lastClicked != list.firstElementChild) {
         console.log(lastClicked.previousElementSibling);
-        emitEvent(lastClicked.previousElementSibling);
+
+        lastClicked.previousElementSibling.click();
       }
       break;
     case 40:
       if (lastClicked == undefined) {
         lastClicked = list.firstElementChild;
         console.log(lastClicked);
-        emitEvent(lastClicked);
+        lastClicked.click();
       } else if (lastClicked != list.lastElementChild) {
         console.log(lastClicked.nextElementSibling);
-        emitEvent(lastClicked.nextElementSibling);
+        lastClicked.nextElementSibling.click();
       }
       break;
   }
