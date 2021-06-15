@@ -34,10 +34,12 @@ body {
 .title {
   display: flex;
   margin-left: 10px;
-  width: 250px;
+  width: 34ch;
   font-size: large;
+  font-family: monospace;
+  white-space: nowrap;
 }
-.title > .part1 {
+/* .title > .part1 {
   white-space: nowrap;
 }
 .title > .part2 {
@@ -46,7 +48,7 @@ body {
 
   text-overflow: ellipsis;
   direction: rtl;
-}
+} */
 
 .preview {
   width: 50px;

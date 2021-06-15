@@ -2,16 +2,13 @@ import itemsList from "./itemsList.js";
 
 var truncate = (text) => {
   var title = document.createElement("div");
-  var part1 = document.createElement("span");
-  var part2 = document.createElement("span");
+
   title.classList.add("title");
-  part1.classList.add("part1");
-  part2.classList.add("part2");
-  part1.textContent = text.slice(0, 14);
-  part2.textContent = text.slice(14);
-  console.log(part2.textContent);
-  title.append(part1);
-  title.append(part2);
+
+  if (text.length > 30) {
+    title.textContent =
+      text.slice(0, 15) + "..." + text.slice(text.length - 15);
+  } else title.textContent = text;
 
   return title;
 };
