@@ -56,3 +56,7 @@ body {
   object-fit: cover;
   border-radius: 8px;
 }
+.clicked {
+  background: #185adb;
+  color: white;
+}

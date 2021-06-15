@@ -1,4 +1,7 @@
 import itemsList from "./itemsList.js";
+var lastClicked = undefined;
+const previewLarge = document.querySelector(".previewLarge");
+const previewTitle = document.querySelector(".name");
 
 var truncate = (text) => {
   var title = document.createElement("div");
@@ -12,6 +15,11 @@ var truncate = (text) => {
 
   return title;
 };
+function setPreview(item) {
+  previewTitle.textContent = item.firstChild.getAttribute("alt");
+  previewLarge.setAttribute("src", item.firstChild.getAttribute("src"));
+}
+
 const list = document.querySelector(".list");
 itemsList.forEach((obj, index) => {
   var item = document.createElement("li");
@@ -27,9 +35,7 @@ itemsList.forEach((obj, index) => {
   item.setAttribute("tabindex", index);
   list.appendChild(item);
 });
-var lastClicked = undefined;
-const previewLarge = document.querySelector(".previewLarge");
-const previewTitle = document.querySelector(".name");
+
 //event delegation
 
 document.addEventListener(
@@ -38,15 +44,12 @@ document.addEventListener(
     if (event.target.closest(".item")) {
       const item = event.target.closest(".item");
       if (lastClicked != undefined) {
-        lastClicked.style.backgroundColor = "#ffffff";
-        lastClicked.style.color = "#000000";
+        lastClicked.classList.remove("clicked");
       }
 
       lastClicked = item;
-      previewTitle.textContent = item.firstChild.getAttribute("alt");
-      previewLarge.setAttribute("src", item.firstChild.getAttribute("src"));
-      item.style.backgroundColor = "#185adb";
-      item.style.color = "#ffffff";
+      setPreview(item);
+      item.classList.add("clicked");
     }
   },
   false
@@ -57,24 +60,20 @@ document.onkeydown = function (e) {
     case 38:
       if (lastClicked == undefined) {
         lastClicked = list.firstElementChild;
-        console.log(lastClicked);
 
         lastClicked.click();
       } else if (lastClicked != list.firstElementChild) {
-        console.log(lastClicked.previousElementSibling);
-
         lastClicked.previousElementSibling.click();
       }
       break;
     case 40:
       if (lastClicked == undefined) {
         lastClicked = list.firstElementChild;
-        console.log(lastClicked);
+
         lastClicked.click();
-      } else if (lastClicked != list.lastElementChild) {
-        console.log(lastClicked.nextElementSibling);
+      } else if (lastClicked != list.lastElementChild)
         lastClicked.nextElementSibling.click();
-      }
+
       break;
   }
 };
