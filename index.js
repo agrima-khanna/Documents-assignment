@@ -32,7 +32,8 @@ itemsList.forEach((obj, index) => {
 
   item.appendChild(img);
   item.appendChild(truncate(obj.title));
-  item.setAttribute("tabindex", index);
+  // item.setAttribute("tabindex", index);
+  //helps to switch using tab key by simply Outlining  the elements provided with tabindex
   list.appendChild(item);
 });
 
