@@ -3,23 +3,26 @@ var lastClicked = undefined;
 const previewLarge = document.querySelector(".previewLarge");
 const previewTitle = document.querySelector(".name");
 
-var truncate = (text) => {
+var truncate = (text, item) => {
   var title = document.createElement("div");
-
   title.classList.add("title");
+  item.appendChild(title);
+  title.textContent = text;
+  //console.log(title.offsetWidth);
+  if (title.offsetWidth > 250) {
+    for (var i = 1; i <= text.length; i++) {
+      var limit = Math.ceil((text.length - i) / 2);
 
-  if (text.length > 30) {
-    title.textContent =
-      text.slice(0, 15) + "..." + text.slice(text.length - 15);
-  } else title.textContent = text;
-
-  return title;
+      title.textContent =
+        text.slice(0, limit) + "..." + text.slice(text.length - limit);
+      if (title.offsetWidth <= 250) break;
+    }
+  }
 };
 function setPreview(item) {
   previewTitle.textContent = item.firstChild.getAttribute("alt");
   previewLarge.setAttribute("src", item.firstChild.getAttribute("src"));
 }
-
 const list = document.querySelector(".list");
 itemsList.forEach((obj, index) => {
   var item = document.createElement("li");
@@ -31,10 +34,10 @@ itemsList.forEach((obj, index) => {
   img.setAttribute("alt", obj.title);
 
   item.appendChild(img);
-  item.appendChild(truncate(obj.title));
   // item.setAttribute("tabindex", index);
   //helps to switch using tab key by simply Outlining  the elements provided with tabindex
   list.appendChild(item);
+  truncate(obj.title, item);
 });
 
 //event delegation
