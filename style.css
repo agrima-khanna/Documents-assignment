@@ -1,12 +1,22 @@
 body {
+  position: relative;
   display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 .container {
+  width: 75%;
+  height: 75%;
   margin: auto;
   display: flex;
 }
+
 .previewPanel {
   display: flex;
+  width: 70%;
+  height: 75%;
+  /* padding-top: 200%; */
   flex-direction: column;
   align-items: center;
 
@@ -14,46 +24,44 @@ body {
 }
 
 .previewLarge {
-  width: 600px;
-  height: 900px;
   object-fit: cover;
+  width: 100%;
+  height: 90vh;
 }
 .list {
   display: flex;
-
+  width: 30%;
   flex-direction: column;
-  min-width: fit-content;
+  /* min-width: fit-content; */
 }
 .item {
   display: flex;
   align-items: center;
-
+  width: 100%;
   margin-bottom: 10px;
   padding: 10px;
 }
 .title {
+  white-space: nowrap;
+  /* flex-grow: 1; */
   margin-left: 10px;
-
+  overflow: scroll;
   font-size: large;
 }
-/* .title > .part1 {
-  white-space: nowrap;
-}
-.title > .part2 {
-  white-space: nowrap;
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-  direction: rtl;
-} */
 
 .preview {
-  width: 50px;
-  height: 50px;
+  width: 5vh;
+  height: 5vh;
+  min-width: 20px;
+  min-height: 20px;
   object-fit: cover;
   border-radius: 8px;
 }
+
 .clicked {
   background: #185adb;
   color: white;
+}
+.name {
+  /* white-space: nowrap; */
 }

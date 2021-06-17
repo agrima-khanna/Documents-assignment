@@ -3,44 +3,54 @@ var lastClicked = undefined;
 const previewLarge = document.querySelector(".previewLarge");
 const previewTitle = document.querySelector(".name");
 
-var truncate = (text, item) => {
-  var title = document.createElement("div");
-  title.classList.add("title");
-  item.appendChild(title);
-  title.textContent = text;
-  //console.log(title.offsetWidth);
-  if (title.offsetWidth > 250) {
-    for (var i = 1; i <= text.length; i++) {
-      var limit = Math.ceil((text.length - i) / 2);
+var truncate = (title, text) => {
+  console.log(title.offsetWidth);
+  console.log(title.scrollWidth);
 
-      title.textContent =
+  title.innerHTML = text;
+  if (title.offsetWidth < title.scrollWidth) {
+    var low = 1,
+      high = text.length;
+
+    while (low < high) {
+      var mid = (high + low) / 2;
+      var limit = Math.ceil((text.length - mid) / 2);
+      title.innerHTML =
         text.slice(0, limit) + "..." + text.slice(text.length - limit);
-      if (title.offsetWidth <= 250) break;
+      if (title.offsetWidth < title.scrollWidth) low = mid + 1;
+      else high = mid - 1;
     }
+    title.innerHTML =
+      text.slice(0, limit - 1) + "..." + text.slice(text.length - limit + 1);
   }
 };
 function setPreview(item) {
-  previewTitle.textContent = item.firstChild.getAttribute("alt");
-  previewLarge.setAttribute("src", item.firstChild.getAttribute("src"));
+  previewTitle.textContent = item.getAttribute("alt");
+  previewLarge.setAttribute("src", item.getAttribute("src"));
 }
 const list = document.querySelector(".list");
 itemsList.forEach((obj, index) => {
-  var item = document.createElement("li");
-  item.classList.add("item");
-  var img = document.createElement("img");
-  img.classList.add("preview");
+  list.innerHTML += `
 
-  img.setAttribute("src", obj.previewImage);
-  img.setAttribute("alt", obj.title);
-
-  item.appendChild(img);
+   <li class="item" >
+   <img class="preview"  src=${obj.previewImage}>
+   <div class="title" >${obj.title}
+   </div>
+   </li> `;
   // item.setAttribute("tabindex", index);
   //helps to switch using tab key by simply Outlining  the elements provided with tabindex
-  list.appendChild(item);
-  truncate(obj.title, item);
+  list.lastElementChild.firstElementChild.setAttribute("alt", obj.title);
+  truncate(list.lastElementChild.lastElementChild, obj.title);
 });
 
 //event delegation
+window.addEventListener("resize", () => {
+  const items = document.querySelectorAll(".item");
+  items.forEach((obj) => {
+    // console.log(obj.getAttribute("data-title"));
+    truncate(obj.lastElementChild, obj.firstElementChild.getAttribute("alt"));
+  });
+});
 
 document.addEventListener(
   "click",
@@ -52,7 +62,7 @@ document.addEventListener(
       }
 
       lastClicked = item;
-      setPreview(item);
+      setPreview(item.firstElementChild);
       item.classList.add("clicked");
     }
   },
